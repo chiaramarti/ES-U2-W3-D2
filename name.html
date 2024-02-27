@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form di Registrazione</title>
+  </head>
+  <body>
+    <div>
+      <label for="nameInput">Nome:</label>
+      <input type="text" id="nameInput" placeholder="Inserisci il tuo nome" />
+    </div>
+    <div>
+      <button onclick="salvaNome()">Salva Nome</button>
+      <button onclick="rimuoviNome()">Rimuovi Nome Salvato</button>
+    </div>
+    <div id="nomeSalvato"></div>
+
+    <script>
+      // Funzione per salvare il nome nel localStorage
+      function salvaNome() {
+        let nome = document.getElementById("nameInput").value;
+        localStorage.setItem("nomeUtente", nome);
+        aggiornaNomeSalvato();
+      }
+
+      // Funzione per rimuovere il nome dal localStorage
+      function rimuoviNome() {
+        localStorage.removeItem("nomeUtente");
+        aggiornaNomeSalvato();
+      }
+
+      // Funzione per aggiornare il valore del nome salvato sopra l'input field
+      function aggiornaNomeSalvato() {
+        let nomeSalvato = localStorage.getItem("nomeUtente");
+        let elementoNomeSalvato = document.getElementById("nomeSalvato");
+        if (nomeSalvato) {
+          elementoNomeSalvato.textContent = "Bentornata " + nomeSalvato + "! Ti stavamo aspettando!";
+        } else {
+          elementoNomeSalvato.textContent = "";
+        }
+      }
+
+      // Alla caricamento della pagina, controlla se c'è un nome salvato e aggiorna il display
+      document.addEventListener("DOMContentLoaded", function () {
+        aggiornaNomeSalvato();
+      });
+    </script>
+  </body>
+</html>

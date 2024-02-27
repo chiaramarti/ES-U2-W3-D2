@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contatore con sessionStorage</title>
+  </head>
+  <body>
+    <div id="counter"></div>
+
+    <script>
+      // Controlla se sessionStorage supportato dal browser
+      if (typeof Storage !== "undefined") {
+        // Recupera il valore del contatore dalla sessionStorage
+        let count = sessionStorage.getItem("counter");
+        // Se il valore non esiste, inizializza a 0
+        if (count === null) {
+          count = 0;
+        } else {
+          // Converte il valore in intero
+          count = parseInt(count);
+        }
+
+        // Aggiorna il valore del contatore sulla pagina
+        document.getElementById("counter").innerHTML = "Session timing: " + count;
+
+        // Funzione per aggiornare il contatore ogni secondo
+        function updateCounter() {
+          count++;
+          // Aggiorna il valore del contatore sulla pagina
+          document.getElementById("counter").innerHTML = "Contatore: " + count;
+          // Salva il nuovo valore del contatore nella sessionStorage
+          sessionStorage.setItem("counter", count);
+        }
+
+        setInterval(updateCounter, 1000);
+      } else {
+        // Messaggio di avviso se sessionStorage non è supportato
+        document.getElementById("counter").innerHTML = "Spiacenti, il tuo browser non supporta sessionStorage.";
+      }
+    </script>
+  </body>
+</html>
